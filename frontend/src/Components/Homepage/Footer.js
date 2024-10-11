@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-gray-800 text-white text-center p-4 w-full">
       <div className="mb-2">
         <a
-          href=""
+          href="https://github.com/Prashant-pathak-01/QuizWiz"
           target="_blank"
           rel="noopener noreferrer"
           className="mx-2 hover:text-gray-400"
