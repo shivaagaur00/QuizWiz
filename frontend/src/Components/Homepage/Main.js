@@ -5,7 +5,7 @@ import Header from "./Header";
 
 function Homepage() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen w-full">
       <Header></Header>
       <Body></Body>
       <Footer></Footer>
