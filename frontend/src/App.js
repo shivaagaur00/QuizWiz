@@ -8,7 +8,7 @@ import AuthenticationExaminer from "./Components/Authentication/ExaminerAuth";
 
 function App() {
   return (
-    <div className="App">
+    <div classNameName="App">
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
