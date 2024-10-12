@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-import { Snackbar, Alert } from "@mui/material"; // Import Snackbar and Alert
+import React, { useEffect, useState } from "react";
+import { Snackbar, Alert } from "@mui/material";
 import Header from "../Homepage/Header";
 import Footer from "../Homepage/Footer";
-import { getCandidate, addCandidate } from "../../APIs";
+import { getCandidate, addCandidate } from "../../API/Candidate";
 import { useAppContext } from "../../LocalStorage";
 import { useNavigate } from "react-router-dom";
+
 function CandidateAuth() {
+  const { user, setUser } = useAppContext();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [user, navigate]);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -19,8 +25,6 @@ function CandidateAuth() {
     branch: "",
   });
 
-  const { user, setUser } = useAppContext();
-  const navigate = useNavigate();
   // Snackbar state
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -83,6 +87,10 @@ function CandidateAuth() {
     if (res.status === 200) {
       setSnackbarMessage("Registration successful!");
       setSnackbarSeverity("success");
+      setIsLogin(true);
+    } else if (res.status == 201) {
+      setSnackbarMessage("User with this email already exist!");
+      setSnackbarSeverity("error");
     } else {
       setSnackbarMessage("Registration failed!");
       setSnackbarSeverity("error");

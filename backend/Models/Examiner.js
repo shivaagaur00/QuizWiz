@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   },
   type: {
     type: Number,
-    default: 0,
+    default: 1,
     required: true,
   },
   photo: {
@@ -37,27 +37,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  degree: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  collegeRollNo: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  branch: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-const User = mongoose.model("Student", userSchema);
+const User = mongoose.model("Examiner", userSchema);
 
 export default User;
