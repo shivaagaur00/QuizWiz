@@ -43,7 +43,7 @@ function Main() {
           <h1 classNameName="ml-2 font-rubik font-semibold">Log out</h1>
         </button>
       </nav>
-      <div>this is the detail section</div>
+      <div>this is the detail hi i am aabara ja dARA</div>
     </div>
   );
 }
