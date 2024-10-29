@@ -5,12 +5,15 @@ import Examiner from "./Components/Examiner/Dashboard/Main";
 import Candidate from "./Components/Candidate/Dashboard/Main";
 import AuthenticationCandidate from "./Components/Authentication/CandidateAuth";
 import AuthenticationExaminer from "./Components/Authentication/ExaminerAuth";
-
+import NotFoundPage from "./Components/Homepage/NotFoundPage";
+import Quiz from "./Components/Candidate/Quiz/Main";
 function App() {
   return (
     <div classNameName="App">
       <Router>
         <Routes>
+          <Route path="/*" element={<NotFoundPage />} />
+
           <Route path="/" element={<Homepage />} />
 
           <Route path="/auth" element={<Homepage />} />
@@ -20,6 +23,8 @@ function App() {
           <Route path="/auth/examiner" element={<AuthenticationExaminer />} />
 
           <Route path="/candidate/dashboard" element={<Candidate />} />
+
+          <Route path="/candidate/quiz/:id" element={<Quiz />} />
 
           <Route path="/examiner/dashboard" element={<Examiner />} />
         </Routes>

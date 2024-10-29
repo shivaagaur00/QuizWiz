@@ -1,11 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../../LocalStorage";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+import JoinQuiz from "./JoinQuiz";
+import Statistics from "./Statistics";
+import InsightsSharpIcon from "@mui/icons-material/InsightsSharp";
+
 function Main() {
   const { user, setUser } = useAppContext();
+  const [joinQuiz, setJoinQuiz] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (user === undefined) {
       navigate("/auth/candidate");
@@ -20,9 +26,13 @@ function Main() {
         <div className="flex flex-col justify-center items-center mt-20">
           <img
             alt="profile picture"
-            src={user?.photo}
+            src={
+              user?.photo === "default"
+                ? "https://avatar.iran.liara.run/public"
+                : user?.photo
+            }
             className="rounded-full border-4 p-2 border-purple-400 w-40"
-          ></img>
+          />
           <h2 className="font-rubik font-semibold m-2 mt-6 ">
             {user?.firstName} {user?.lastName}
           </h2>
@@ -31,19 +41,34 @@ function Main() {
             {user?.college}
           </h3>
         </div>
-        <button className="bg-blue-900 p-3 m-4 rounded-md text-white font-rubik flex justify-center items-center hover:text-blue-950 hover:bg-white hover:border-2 hover:border-blue-900 transition-colors duration-300">
-          <EditNoteOutlinedIcon></EditNoteOutlinedIcon>
-          <h1 className="ml-2">Join a Quiz</h1>
-        </button>
+        {joinQuiz ? (
+          <button
+            onClick={() => setJoinQuiz(!joinQuiz)}
+            className="bg-blue-900 p-3 m-4 rounded-md text-white font-rubik flex justify-center items-center hover:text-blue-950 hover:bg-white hover:border-2 hover:border-blue-900 transition-colors duration-300"
+          >
+            <EditNoteOutlinedIcon />
+            <h1 className="ml-2">Join a Quiz</h1>
+          </button>
+        ) : (
+          <button
+            onClick={() => setJoinQuiz(!joinQuiz)}
+            className="bg-blue-900 p-3 m-4 rounded-md text-white font-rubik flex justify-center items-center hover:text-blue-950 hover:bg-white hover:border-2 hover:border-blue-900 transition-colors duration-300"
+          >
+            <InsightsSharpIcon></InsightsSharpIcon>
+            <h1 className="ml-2">View Statistics</h1>
+          </button>
+        )}
         <button
-          onClick={(e) => setUser(undefined)}
-          className="mb-6 flex flex-row justify-center bg-purple-300 border-t-4 border-b-4  border-purple-400 p-4"
+          onClick={() => setUser(undefined)}
+          className="mb-6 flex flex-row justify-center bg-purple-300 border-t-4 border-b-4 border-purple-400 p-4"
         >
-          <LogoutIcon></LogoutIcon>
-          <h1 classNameName="ml-2 font-rubik font-semibold">Log out</h1>
+          <LogoutIcon />
+          <h1 className="ml-2 font-rubik font-semibold">Log out</h1>
         </button>
       </nav>
-      <div>this is the detail secwnvjosdfrkobenjn ;ew/jpwgtion</div>
+      <div className=" w-4/5 overflow-y-scroll overflow-x-hidden">
+        {joinQuiz ? <Statistics /> : <JoinQuiz />}
+      </div>
     </div>
   );
 }
