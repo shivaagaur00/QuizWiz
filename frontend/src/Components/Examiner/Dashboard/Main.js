@@ -26,7 +26,7 @@ function Main() {
         <div className="flex flex-col justify-center items-center">
           <img
             alt="profile picture"
-            src={user?.photo}
+            src="https://avatar.iran.liara.run/public"
             className="rounded-full border-4 p-2 border-purple-400 w-40"
           ></img>
           <h2 className="font-rubik font-semibold m-2 mt-6 ">
