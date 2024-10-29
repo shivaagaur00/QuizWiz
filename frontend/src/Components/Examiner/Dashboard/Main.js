@@ -27,9 +27,9 @@ function Main() {
           <img
             alt="profile picture"
             src={
-              user.photo == "default"
+              user?.photo == "default"
                 ? "https://avatar.iran.liara.run/public"
-                : user.photo
+                : user?.photo
             }
             className="rounded-full border-4 p-2 border-purple-400 w-40"
           ></img>

@@ -16,6 +16,7 @@ const attemptSchema = new mongoose.Schema({
 });
 
 const quizSchema = new mongoose.Schema({
+  code: { type: Number, required: true, unique: true },
   quizTitle: { type: String, required: true },
   questions: { type: [questionSchema], required: true },
   numberOfQuestions: { type: Number, required: true },
@@ -28,7 +29,6 @@ const quizSchema = new mongoose.Schema({
     enum: ["easy", "medium", "hard"],
     required: true,
   },
-  tags: { type: [String], default: [] },
   createdAt: { type: Date, default: Date.now },
   attemptedBy: { type: [attemptSchema], default: [] },
 });
