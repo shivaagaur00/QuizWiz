@@ -18,8 +18,7 @@ const userSchema = new mongoose.Schema({
   },
   photo: {
     type: String,
-    default:
-      "https://photosvibe.in/wp-content/uploads/2024/05/whatsapp-no-icon-dp-broken_19.webp",
+    default: "default",
   },
   email: {
     type: String,
