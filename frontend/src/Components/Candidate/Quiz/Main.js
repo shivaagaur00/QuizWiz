@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, isValidElement } from "react";
 import { useLocation } from "react-router-dom";
+import { QuizDetails } from "../../../API/Quiz";
+import INVALID_CODE from "./../../../Assets/Bad idea-rafiki.svg";
+import QuizBoard from "./QuizBoard";
 function FullScreenApp() {
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(true);
   const [IsValidCode, setIsValidCode] = useState(false);
+  const [Quiz, setQuiz] = useState();
   const location = useLocation();
   const code = location.pathname.split("/")[3];
+
   const enterFullScreen = () => {
     const elem = document.documentElement;
     const request =
@@ -21,21 +26,6 @@ function FullScreenApp() {
     }
   };
 
-  const exitFullScreen = () => {
-    const exit =
-      document.exitFullscreen ||
-      document.mozCancelFullScreen ||
-      document.webkitExitFullscreen ||
-      document.msExitFullscreen;
-
-    if (exit) {
-      exit
-        .call(document)
-        .then(() => setIsFullScreen(false))
-        .catch((err) => console.error("Error exiting fullscreen:", err));
-    }
-  };
-
   useEffect(() => {
     const handleFullScreenChange = () => {
       setIsFullScreen(!!document.fullscreenElement);
@@ -48,8 +38,11 @@ function FullScreenApp() {
 
   useEffect(() => {
     const getQuizDetails = async () => {
-      let QuizDetails = await QuizDetails({ Code: code });
-      console.log(QuizDetails);
+      let res = await QuizDetails({ Code: code });
+      if (res?.status == 200) {
+        setQuiz(res?.data);
+        setIsValidCode(true);
+      }
     };
     getQuizDetails();
   }, [code]);
@@ -58,17 +51,32 @@ function FullScreenApp() {
     <div>
       {isFullScreen ? (
         <div>
-          {IsValidCode ? <div>Contest timer</div> : <div>Not a valid Code</div>}
+          {IsValidCode ? (
+            <QuizBoard quiz={Quiz}></QuizBoard>
+          ) : (
+            <div className="w-full h-screen flex justify-center items-center flex-col bg-blue-50">
+              <img src={INVALID_CODE} className="w-1/3"></img>
+              <h1 className="text-4xl text-purple-950 font-bold">
+                Contest with this code does not exist.
+              </h1>
+            </div>
+          )}
         </div>
       ) : (
-        <div className="w-screen h-screen flex flex-col items-center justify-center">
-          <h1 className="text-3xl">Click below to toggle Full Screen!</h1>
-          <button
-            onClick={isFullScreen ? exitFullScreen : enterFullScreen}
-            className="bg-blue-500 text-white p-3 mt-4 rounded"
-          >
-            {isFullScreen ? "Exit Full Screen" : "Go Full Screen"}
-          </button>
+        <div className="w-full h-screen flex items-center justify-center bg-blue-50">
+          <div className="bg-white w-1/2 p-20 pb-10 flex flex-col items-center justify-center shadow-lg rounded-lg border-4">
+            <h1 className="text-xl text-center font-semibold text-blue-950">
+              To maintain the integrity of the quiz and prevent cheating, please
+              enter full-screen mode by clicking the button below. This will
+              ensure a focused environment without distractions.
+            </h1>
+            <button
+              onClick={enterFullScreen}
+              className="bg-blue-900 hover:bg-blue-950 duration-300 border-blue-200 border-4 rounded-lg text-white p-3 w-40 font-rubik font-semibold m-10"
+            >
+              Continue
+            </button>
+          </div>
         </div>
       )}
     </div>

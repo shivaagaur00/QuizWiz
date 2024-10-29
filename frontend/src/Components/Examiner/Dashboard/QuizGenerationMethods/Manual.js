@@ -8,7 +8,7 @@ function Manual({ setMethod }) {
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctOptionIndex, setCorrectOptionIndex] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
-  
+
   const handleAddQuestionClick = () => {
     setShowModal(true);
   };
@@ -22,7 +22,10 @@ function Manual({ setMethod }) {
   };
 
   const handleSaveQuestion = () => {
-    if (questionText.trim() === "" || options.some(opt => opt.trim() === "")) {
+    if (
+      questionText.trim() === "" ||
+      options.some((opt) => opt.trim() === "")
+    ) {
       alert("Please fill in all fields.");
       return;
     }
@@ -46,7 +49,9 @@ function Manual({ setMethod }) {
     const questionToEdit = questions[index];
     setQuestionText(questionToEdit.question);
     setOptions(questionToEdit.options);
-    setCorrectOptionIndex(questionToEdit.options.indexOf(questionToEdit.correctOption));
+    setCorrectOptionIndex(
+      questionToEdit.options.indexOf(questionToEdit.correctOption)
+    );
     setEditingIndex(index);
     setShowModal(true);
   };
@@ -78,10 +83,15 @@ function Manual({ setMethod }) {
         {questions.length === 0 ? (
           <>
             <h1 className="text-3xl font-rubik font-bold flex items-center border-b-4 pb-4 w-2/3 border-purple-400 rounded">
-              <span className="text-center w-full">Create Quizzes Manually</span>
+              <span className="text-center w-full">
+                Create Quizzes Manually
+              </span>
             </h1>
             <h2 className="font-roboto font-semibold text-purple-900 text-center mb-6 w-2/3 p-8">
-              Transform any idea into an engaging quiz! You can create interactive questions manually. Make learning more interactive and engaging with quizzes that keep your audience interested throughout.
+              Transform any idea into an engaging quiz! You can create
+              interactive questions manually. Make learning more interactive and
+              engaging with quizzes that keep your audience interested
+              throughout.
             </h2>
           </>
         ) : (
@@ -91,12 +101,16 @@ function Manual({ setMethod }) {
                 key={index}
                 className="mb-4 flex flex-col bg-purple-100 rounded-md p-4 transition-transform transform hover:scale-105 cursor-pointer"
               >
-                <span className="text-purple-700 font-semibold">{q.question}</span>
+                <span className="text-purple-700 font-semibold">
+                  {q.question}
+                </span>
                 <div className="mt-2">
                   {q.options.map((option, optIndex) => (
                     <div key={optIndex} className="flex items-center">
                       <span className="mr-2">
-                        {optIndex === q.options.indexOf(q.correctOption) ? "✔️" : "⚪"}
+                        {optIndex === q.options.indexOf(q.correctOption)
+                          ? "✔️"
+                          : "⚪"}
                       </span>
                       <span>{option}</span>
                     </div>
@@ -137,8 +151,13 @@ function Manual({ setMethod }) {
       {showModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
-            <h2 className="text-xl font-bold mb-4 text-purple-700">Add Question</h2>
-            <label htmlFor="question-input" className="mb-2 text-sm font-medium text-purple-600">
+            <h2 className="text-xl font-bold mb-4 text-purple-700">
+              Add Question
+            </h2>
+            <label
+              htmlFor="question-input"
+              className="mb-2 text-sm font-medium text-purple-600"
+            >
               Question
             </label>
             <input

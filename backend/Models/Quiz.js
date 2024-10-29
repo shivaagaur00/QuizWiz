@@ -16,7 +16,7 @@ const attemptSchema = new mongoose.Schema({
 });
 
 const quizSchema = new mongoose.Schema({
-  code: { type: Number, required: true },
+  code: { type: Number, required: true, unique: true },
   quizTitle: { type: String, required: true },
   questions: { type: [questionSchema], required: true },
   numberOfQuestions: { type: Number, required: true },
