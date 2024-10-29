@@ -22,7 +22,7 @@ const quizSchema = new mongoose.Schema({
   numberOfQuestions: { type: Number, required: true },
   shuffleQuestions: { type: Boolean, default: false },
   generator: { type: String, required: true },
-  startingTime: { type: Date, required: true },
+  startingTime: { type: String, required: true },
   activeTime: { type: Number, required: true },
   difficultyLevel: {
     type: String,

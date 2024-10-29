@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../../LocalStorage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddCircleOutlineSharpIcon from "@mui/icons-material/AddCircleOutlineSharp";
 import InsightsSharpIcon from "@mui/icons-material/InsightsSharp";
@@ -20,9 +20,11 @@ function Main() {
   return (
     <div className="flex flex-row w-full h-screen">
       <nav className="bg-purple-200 w-1/5 border-r-2 text-blue-950 border-purple-300 justify-between flex flex-col">
-        <div className="text-3xl text-center flex justify-center items-center mt-10 md:text-4xl font-bold tracking-wide mb-4 md:mb-0 cursor-pointer">
-          <span className="text-purple-500">Quiz</span>Wiz
-        </div>
+        <Link to="/">
+          <div className="text-3xl text-center flex justify-center items-center mt-10 md:text-4xl font-bold tracking-wide mb-4 md:mb-0 cursor-pointer">
+            <span className="text-purple-500">Quiz</span>Wiz
+          </div>
+        </Link>
         <div className="flex flex-col justify-center items-center">
           <img
             alt="profile picture"
