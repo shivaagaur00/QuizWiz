@@ -58,6 +58,10 @@ function Main() {
             <h1 className="ml-2">View Statistics</h1>
           </button>
         )}
+        <button className="bg-blue-900 p-3 m-4 rounded-md text-white font-rubik flex justify-center items-center hover:text-blue-950 hover:bg-white hover:border-2 hover:border-blue-900 transition-colors duration-300">
+          <EditNoteOutlinedIcon></EditNoteOutlinedIcon>
+          <h1 className="ml-2">Join a Quiz exciting</h1>
+        </button>
         <button
           onClick={() => setUser(undefined)}
           className="mb-6 flex flex-row justify-center bg-purple-300 border-t-4 border-b-4 border-purple-400 p-4"
