@@ -33,7 +33,7 @@ function Main() {
         </div>
         <button className="bg-blue-900 p-3 m-4 rounded-md text-white font-rubik flex justify-center items-center hover:text-blue-950 hover:bg-white hover:border-2 hover:border-blue-900 transition-colors duration-300">
           <EditNoteOutlinedIcon></EditNoteOutlinedIcon>
-          <h1 className="ml-2">Join a Quiz</h1>
+          <h1 className="ml-2">Join a Quiz exciting</h1>
         </button>
         <button
           onClick={(e) => setUser(undefined)}
