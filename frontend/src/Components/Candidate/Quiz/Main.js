@@ -4,7 +4,7 @@ import { QuizDetails } from "../../../API/Quiz";
 import INVALID_CODE from "./../../../Assets/Bad idea-rafiki.svg";
 import QuizBoard from "./QuizBoard";
 function FullScreenApp() {
-  const [isFullScreen, setIsFullScreen] = useState(true);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [IsValidCode, setIsValidCode] = useState(false);
   const [Quiz, setQuiz] = useState();
   const location = useLocation();
