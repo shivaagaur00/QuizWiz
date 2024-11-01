@@ -17,6 +17,7 @@ const attemptSchema = new mongoose.Schema({
 
 const quizSchema = new mongoose.Schema({
   code: { type: Number, required: true, unique: true },
+  TimePerQuestion: { type: Number, default: null },
   quizTitle: { type: String, required: true },
   questions: { type: [questionSchema], required: true },
   numberOfQuestions: { type: Number, required: true },

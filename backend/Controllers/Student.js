@@ -1,5 +1,5 @@
 import Student from "./../Models/Student.js";
-
+import { quizSchema } from "./../Models/Student.js";
 export const addStudent = async (req, res) => {
   try {
     const email = req.body.email;
@@ -32,6 +32,19 @@ export const getStudent = async (req, res) => {
       return res.status(200).json({ ...user });
     } else {
       return res.status(201).json({ message: "Wrong Password" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Could not fetch data" });
+  }
+};
+
+export const updateScore = async (req, res) => {
+  try {
+    {
+      /*
+      const {email,code,totalMarks,score} = req.body;
+    const quiz = new Quiz({});
+      */
     }
   } catch (error) {
     return res.status(500).json({ message: "Could not fetch data" });

@@ -1,8 +1,8 @@
 import React from "react";
 import TIMER from "./../../../Assets/hourglass.gif";
 
-function WaitingPage({ timeLeft }) {
-  const formatTimeLeft = (milliseconds) => {
+function WaitingPage({ timeLeftToStart }) {
+  const formatTimeLeftToStart = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -24,7 +24,7 @@ function WaitingPage({ timeLeft }) {
         className="w-60 opacity-75 p-10 bg-white rounded-lg"
       ></img>
       <h2 className="text-4xl font-semibold font-playfair bg-blue-600 border-4 p-4 px-8 border-slate-400 rounded-lg m-10">
-        {formatTimeLeft(timeLeft)}
+        {formatTimeLeftToStart(timeLeftToStart)}
       </h2>
     </div>
   );
