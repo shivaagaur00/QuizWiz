@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useAppContext } from "D:/mini_project/QuizWiz/frontend/src/LocalStorage.js";
+import { useAppContext } from "D:/mini_project/QuizWiz/frontend/src/LocalStorage.js"; // Updated import
 
 function Manual({ setMethod }) {
   const [showModal, setShowModal] = useState(false);
-  const [questions, setQuestions] = useState([]);
   const [questionText, setQuestionText] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctOptionIndex, setCorrectOptionIndex] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
 
-  
+  const { questions, setQuestions } = useAppContext(); // Updated context usage
+
   const handleAddQuestionClick = () => {
     setShowModal(true);
   };
@@ -63,8 +63,7 @@ function Manual({ setMethod }) {
   };
 
   const confirm = () => {
-    localStorage.setItem("questions", JSON.stringify(questions));
-    setMethod(7); 
+    setMethod(7);
   };
 
   const handleOptionChange = (index, value) => {
