@@ -17,3 +17,12 @@ export const getCandidate = async (data) => {
     console.log(error);
   }
 };
+
+export const updateScore = async (data) => {
+  try {
+    let res = await axios.post(`${URL}/updateScore`, data);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

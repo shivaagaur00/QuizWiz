@@ -1,12 +1,16 @@
-import React, { useState, useEffect, isValidElement } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { QuizDetails } from "../../../API/Quiz";
 import INVALID_CODE from "./../../../Assets/Bad idea-rafiki.svg";
 import QuizBoard from "./QuizBoard";
+import { useAppContext } from "../../../LocalStorage";
+
 function FullScreenApp() {
+  const { user } = useAppContext();
+  const navigate = useNavigate();
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [IsValidCode, setIsValidCode] = useState(false);
-  const [Quiz, setQuiz] = useState();
+  const [isValidCode, setIsValidCode] = useState(false);
+  const [quiz, setQuiz] = useState();
   const location = useLocation();
   const code = location.pathname.split("/")[3];
 
@@ -39,23 +43,29 @@ function FullScreenApp() {
   useEffect(() => {
     const getQuizDetails = async () => {
       let res = await QuizDetails({ Code: code });
-      if (res?.status == 200) {
-        setQuiz(res?.data);
+      if (res?.status === 200) {
+        setQuiz(res.data);
         setIsValidCode(true);
       }
     };
     getQuizDetails();
   }, [code]);
 
+  // Check if the user is logged in; if not, navigate and return early
+  if (!user) {
+    navigate("/auth/candidate");
+    return null; // Prevent further rendering
+  }
+
   return (
     <div>
       {isFullScreen ? (
         <div>
-          {IsValidCode ? (
-            <QuizBoard quiz={Quiz}></QuizBoard>
+          {isValidCode ? (
+            <QuizBoard quiz={quiz}></QuizBoard>
           ) : (
             <div className="w-full h-screen flex justify-center items-center flex-col bg-blue-50">
-              <img src={INVALID_CODE} className="w-1/3"></img>
+              <img src={INVALID_CODE} className="w-1/3" alt="Invalid Code" />
               <h1 className="text-4xl text-purple-950 font-bold">
                 Contest with this code does not exist.
               </h1>

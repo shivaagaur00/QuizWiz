@@ -1,26 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TIMER from "./../../../Assets/Work time-pana.svg";
 import { Link } from "react-router-dom";
+import { useAppContext } from "../../../LocalStorage";
+import { updateScore } from "./../../../API/Candidate.js";
 
-function TimeOver({ timeLeft }) {
+function TimeOver({ result, registered, totalMarks, code }) {
+  const { user } = useAppContext();
+
   const exitFullScreen = () => {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch((error) => {
+        console.error("Failed to exit fullscreen:", error);
+      });
+    } else {
+      console.warn("Document is not in fullscreen mode.");
     }
   };
+
+  useEffect(() => {
+    const updateMarks = async () => {
+      if (registered && user?.email) {
+        try {
+          await updateScore({
+            score: result,
+            email: user?.email,
+            totalMarks,
+            code,
+          });
+        } catch (error) {
+          console.error("Error updating score:", error);
+        }
+      }
+    };
+    updateMarks();
+  }, [registered, user, result, totalMarks, code]);
+
   return (
     <div className="flex flex-row justify-around items-center w-full h-screen bg-gradient-to-br from-blue-900 via-purple-800 to-black text-white">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mb-4 text-white">Time's Up!</h1>
+        <h1 className="text-4xl font-bold mb-4 text-white">Time’s Up!</h1>
         <p className="text-lg mb-8 text-blue-200">
-          The quiz session has ended. Thanks for participating!
+          Your quiz session has ended.
         </p>
+        <p className="mb-4">
+          {registered
+            ? "Thank you for participating!"
+            : "You didn’t participate in this session."}
+        </p>
+        <h2 className="text-2xl font-semibold mb-6">Score: {result}</h2>
         <Link to="/candidate/dashboard">
           <button
             className="px-6 py-3 bg-purple-700 hover:bg-purple-600 text-white font-semibold rounded-lg shadow-lg transition duration-300 ease-in-out"

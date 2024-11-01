@@ -5,53 +5,63 @@ import TimeOver from "./TimeOver";
 
 function QuizBoard({ quiz }) {
   const startingTime = new Date(quiz.startingTime).getTime();
-  const [timeLeft, setTimeLeft] = useState(startingTime - Date.now());
-  const [CurrIndex, setCurrIndex] = useState(0);
-  const [QuizEnded, setQuizEnded] = useState(false);
+  const activeDuration = quiz.activeTime * 60000;
+  const endingTime = startingTime + activeDuration;
+  const timePerQuestion = quiz.TimePerQuestion * 1000;
+  const [timeLeftToStart, setTimeLeftToStart] = useState(
+    startingTime - Date.now()
+  );
+  const [timeLeftToEnd, setTimeLeftToEnd] = useState(endingTime - Date.now());
+  const [currIndex, setCurrIndex] = useState(0);
+  const [quizEnded, setQuizEnded] = useState(false);
+  const [nextQuestion, setNextQuestion] = useState(false);
+  const [result, setResult] = useState(0);
+  const [registered, setRegistered] = useState(false);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const remainingTime = startingTime - Date.now();
-      setTimeLeft(remainingTime);
-      if (remainingTime <= 0) {
-        clearInterval(intervalId);
-        setTimeLeft(0);
+    if (timeLeftToStart > 0) {
+      setInterval(() => {
+        setTimeLeftToStart(startingTime - Date.now());
+      }, 1000);
+    } else if (timeLeftToEnd <= 0) {
+      setQuizEnded(true);
+    }
+  }, [timeLeftToStart, startingTime, timeLeftToEnd, currIndex]);
+
+  useEffect(() => {
+    if (nextQuestion) {
+      setNextQuestion(false);
+      if (currIndex < quiz.questions.length - 1) {
+        setCurrIndex(currIndex + 1);
+      } else {
+        setQuizEnded(true);
       }
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, [startingTime]);
-
-  useEffect(() => {
-    if (timeLeft <= 0 && !QuizEnded) {
-      const timer = setTimeout(() => {
-        setCurrIndex((prevIndex) => {
-          if (prevIndex < quiz.numberOfQuestions - 1) {
-            return prevIndex + 1;
-          } else {
-            setQuizEnded(true);
-            return prevIndex;
-          }
-        });
-      }, 500);
-
-      return () => clearTimeout(timer);
     }
-  }, [CurrIndex, timeLeft, quiz.numberOfQuestions, QuizEnded]);
-
-  useEffect(() => {
-    if (QuizEnded) {
-      console.log("The quiz has ended!");
-    }
-  }, [QuizEnded]);
+  }, [nextQuestion]);
 
   return (
     <div className="bg-blue-950 text-white">
-      {timeLeft > 0 ? (
-        <WaitingPage timeLeft={timeLeft} />
-      ) : QuizEnded ? (
-        <TimeOver></TimeOver>
+      {timeLeftToStart > 0 ? (
+        <WaitingPage timeLeftToStart={timeLeftToStart} />
+      ) : quizEnded ? (
+        <TimeOver
+          result={result}
+          registered={registered}
+          totalMarks={quiz.numberOfQuestions}
+          code={quiz.code}
+        />
       ) : (
-        <QuestionCard question={quiz.questions[CurrIndex]} />
+        <QuestionCard
+          question={quiz.questions[currIndex]}
+          index={currIndex}
+          shuffle={quiz.shuffleQuestions}
+          time={quiz.TimePerQuestion}
+          setResult={setResult}
+          setNextQuestion={setNextQuestion}
+          setRegistered={setRegistered}
+          setTimeLeftToEnd={setTimeLeftToEnd}
+          setQuizEnded={setQuizEnded}
+        />
       )}
     </div>
   );

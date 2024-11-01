@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { addStudent, getStudent } from "./../Controllers/Student.js";
+import {
+  addStudent,
+  getStudent,
+  updateScore,
+} from "./../Controllers/Student.js";
 import { addExaminer, getExaminer } from "./../Controllers/Examiner.js";
 import { getQuiz } from "../Controllers/Quiz.js";
 const route = Router();
@@ -9,6 +13,7 @@ const route = Router();
 }
 route.post("/addStudent", addStudent);
 route.post("/getStudent", getStudent);
+route.post("/updateScore", updateScore);
 
 {
   /*  Examiner  */

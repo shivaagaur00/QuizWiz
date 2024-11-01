@@ -1,6 +1,24 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+export const quizSchema = new mongoose.Schema({
+  code: {
+    type: Number,
+    required: true,
+  },
+  score: {
+    type: Number,
+    required: true,
+  },
+  totalMarks: {
+    type: Number,
+    required: true,
+  },
+  time: {
+    type: String,
+    required: true,
+  },
+});
+export const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
@@ -51,6 +69,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  quizzesAttended: [quizSchema],
   createdAt: {
     type: Date,
     default: Date.now,
