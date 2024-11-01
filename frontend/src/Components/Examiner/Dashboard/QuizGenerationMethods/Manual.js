@@ -60,6 +60,12 @@ function Manual({ setMethod }) {
     setQuestions(questions.filter((_, i) => i !== index));
   };
 
+  const confirm = (index) => {
+    // save array in local storage
+    // setMethod = 7
+    // ()=>setMethod(7);
+  };
+
   const handleOptionChange = (index, value) => {
     const newOptions = [...options];
     newOptions[index] = value;
@@ -144,6 +150,12 @@ function Manual({ setMethod }) {
           className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300 mt-6"
         >
           Add Question
+        </button>
+        <button
+          onClick={confirm}
+          className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-300 mt-6"
+        >
+          Create
         </button>
       </div>
 
