@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import { useAppContext } from "D:/mini_project/QuizWiz/frontend/src/LocalStorage.js"; // Updated import
 
 function Manual({ setMethod }) {
   const [showModal, setShowModal] = useState(false);
-  const [questions, setQuestions] = useState([]);
   const [questionText, setQuestionText] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctOptionIndex, setCorrectOptionIndex] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
+
+  const { questions, setQuestions } = useAppContext(); // Updated context usage
 
   const handleAddQuestionClick = () => {
     setShowModal(true);
@@ -60,10 +62,8 @@ function Manual({ setMethod }) {
     setQuestions(questions.filter((_, i) => i !== index));
   };
 
-  const confirm = (index) => {
-    // save array in local storage
-    // setMethod = 7
-    // ()=>setMethod(7);
+  const confirm = () => {
+    setMethod(7);
   };
 
   const handleOptionChange = (index, value) => {
@@ -151,12 +151,14 @@ function Manual({ setMethod }) {
         >
           Add Question
         </button>
-        <button
-          onClick={confirm}
-          className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-300 mt-6"
-        >
-          Create
-        </button>
+        {questions.length > 0 && (
+          <button
+            onClick={confirm}
+            className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-300 mt-6"
+          >
+            Create
+          </button>
+        )}
       </div>
 
       {/* Modal for Adding Questions */}
