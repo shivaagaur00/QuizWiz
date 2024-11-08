@@ -1,7 +1,13 @@
 import React from "react";
-
+import PreviousQuiz from "./StatsComponent/PreviousQuiz";
 function Statistics() {
-  return <div>Statistics</div>;
+  return (
+    <div>
+      <div>
+        <PreviousQuiz></PreviousQuiz>
+      </div>
+    </div>
+  );
 }
 
 export default Statistics;

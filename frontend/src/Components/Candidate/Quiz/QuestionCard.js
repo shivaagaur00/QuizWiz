@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 function QuestionCard({
+  title,
   question,
   index,
   shuffle,
@@ -27,7 +28,8 @@ function QuestionCard({
   }, [question.options, shuffle]);
 
   const handleMark = (option) => {
-    if (option.isCorrect) setResult((prevResult) => prevResult + 1);
+    if (question.correctOption === option)
+      setResult((prevResult) => prevResult + 1);
     setNextQuestion((nextQuestion) => !nextQuestion);
     setRegistered(true);
   };
@@ -77,12 +79,12 @@ function QuestionCard({
           overflow: "hidden",
         }}
       >
-        <h1 className="text-xl font-semibold">Question Card</h1>
+        <h1 className="text-xl font-semibold">{title}</h1>
         <h2 className="text-xl font-bold">Time Left: {timer}s</h2>
       </motion.div>
       <div className="w-2/3 m-10 bg-white bg-opacity-90 p-14 rounded-xl shadow-lg">
         <h1 className="text-3xl font-bold text-blue-900 tracking-wide mb-4">
-          {index + 1 + ". " + question.questionText}
+          {index + 1 + ". " + question.question}
         </h1>
         <div className="mt-10 space-y-4">
           {shuffledOptions.map((option, number) => (
