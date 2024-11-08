@@ -4,10 +4,10 @@ import QuestionCard from "./QuestionCard";
 import TimeOver from "./TimeOver";
 
 function QuizBoard({ quiz }) {
-  const startingTime = new Date(quiz.startingTime).getTime();
-  const activeDuration = quiz.activeTime * 60000;
+  console.log(quiz);
+  const startingTime = new Date(quiz.scheduledTime).getTime();
+  const activeDuration = quiz.quizDuration * 60000;
   const endingTime = startingTime + activeDuration;
-  const timePerQuestion = quiz.TimePerQuestion * 1000;
   const [timeLeftToStart, setTimeLeftToStart] = useState(
     startingTime - Date.now()
   );
@@ -17,7 +17,6 @@ function QuizBoard({ quiz }) {
   const [nextQuestion, setNextQuestion] = useState(false);
   const [result, setResult] = useState(0);
   const [registered, setRegistered] = useState(false);
-
   useEffect(() => {
     if (timeLeftToStart > 0) {
       setInterval(() => {
@@ -52,10 +51,11 @@ function QuizBoard({ quiz }) {
         />
       ) : (
         <QuestionCard
+          title={quiz.quizTitle}
           question={quiz.questions[currIndex]}
           index={currIndex}
-          shuffle={quiz.shuffleQuestions}
-          time={quiz.TimePerQuestion}
+          shuffle={quiz.shuffleOptions}
+          time={quiz.timePerQuestion}
           setResult={setResult}
           setNextQuestion={setNextQuestion}
           setRegistered={setRegistered}

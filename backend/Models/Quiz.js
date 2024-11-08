@@ -1,13 +1,9 @@
 import mongoose from "mongoose";
 
-const optionSchema = new mongoose.Schema({
-  optionText: { type: String, required: true },
-  isCorrect: { type: Boolean, required: true },
-});
-
 const questionSchema = new mongoose.Schema({
-  questionText: { type: String, required: true },
-  options: { type: [optionSchema], required: true },
+  question: { type: String, required: true },
+  options: { type: [String], required: true },
+  correctOption: { type: String, required: true },
 });
 
 const attemptSchema = new mongoose.Schema({
@@ -17,19 +13,15 @@ const attemptSchema = new mongoose.Schema({
 
 const quizSchema = new mongoose.Schema({
   code: { type: Number, required: true, unique: true },
-  TimePerQuestion: { type: Number, default: null },
   quizTitle: { type: String, required: true },
+  quizDuration: { type: Number, required: true },
+  timePerQuestion: { type: Number, default: 30 },
   questions: { type: [questionSchema], required: true },
   numberOfQuestions: { type: Number, required: true },
   shuffleQuestions: { type: Boolean, default: false },
+  shuffleOptions: { type: Boolean, default: false },
   generator: { type: String, required: true },
-  startingTime: { type: String, required: true },
-  activeTime: { type: Number, required: true },
-  difficultyLevel: {
-    type: String,
-    enum: ["easy", "medium", "hard"],
-    required: true,
-  },
+  scheduledTime: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   attemptedBy: { type: [attemptSchema], default: [] },
 });

@@ -122,7 +122,7 @@ function CreateQuiz() {
       ) : method === 6 ? (
         <Manual setMethod={setMethod} />
       ) : (
-        <ConfirmationAndDetails></ConfirmationAndDetails>
+        <ConfirmationAndDetails setMethod={setMethod}></ConfirmationAndDetails>
       )}
     </div>
   );

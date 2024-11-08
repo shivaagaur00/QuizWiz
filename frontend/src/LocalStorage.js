@@ -4,6 +4,8 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [questions, setQuestions] = useState([]);
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -18,11 +20,14 @@ export const AppProvider = ({ children }) => {
       localStorage.removeItem("user");
     }
   }, [user]);
+
   return (
     <AppContext.Provider
       value={{
         user,
         setUser,
+        questions,
+        setQuestions,
       }}
     >
       {children}

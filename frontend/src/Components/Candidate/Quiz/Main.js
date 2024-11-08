@@ -13,7 +13,6 @@ function FullScreenApp() {
   const [quiz, setQuiz] = useState();
   const location = useLocation();
   const code = location.pathname.split("/")[3];
-
   const enterFullScreen = () => {
     const elem = document.documentElement;
     const request =
@@ -51,10 +50,9 @@ function FullScreenApp() {
     getQuizDetails();
   }, [code]);
 
-  // Check if the user is logged in; if not, navigate and return early
   if (!user) {
     navigate("/auth/candidate");
-    return null; // Prevent further rendering
+    return null;
   }
 
   return (
