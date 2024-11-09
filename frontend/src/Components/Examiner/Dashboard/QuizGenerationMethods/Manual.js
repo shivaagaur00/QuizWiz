@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useAppContext } from "D:/mini_project/QuizWiz/frontend/src/LocalStorage.js"; // Updated import
+import { useAppContext } from "./../../../../LocalStorage.js";
+import SendIcon from "@mui/icons-material/Send";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function Manual({ setMethod }) {
   const [showModal, setShowModal] = useState(false);
@@ -8,8 +12,7 @@ function Manual({ setMethod }) {
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctOptionIndex, setCorrectOptionIndex] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
-
-  const { questions, setQuestions } = useAppContext(); // Updated context usage
+  const { questions, setQuestions } = useAppContext();
 
   const handleAddQuestionClick = () => {
     setShowModal(true);
@@ -85,7 +88,6 @@ function Manual({ setMethod }) {
       </div>
 
       <div className="flex flex-col justify-center items-center p-8">
-        {/* Conditional Display: Hide if questions exist */}
         {questions.length === 0 ? (
           <>
             <h1 className="text-3xl font-rubik font-bold flex items-center border-b-4 pb-4 w-2/3 border-purple-400 rounded">
@@ -99,6 +101,12 @@ function Manual({ setMethod }) {
               engaging with quizzes that keep your audience interested
               throughout.
             </h2>
+            <button
+              onClick={handleAddQuestionClick}
+              className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300 mt-6"
+            >
+              Add Question
+            </button>
           </>
         ) : (
           <ul className="list-disc list-inside mt-6 w-2/3 p-6">
@@ -125,39 +133,47 @@ function Manual({ setMethod }) {
                 <span className="mt-2 text-green-500 font-medium">
                   Correct: {q.correctOption}
                 </span>
-                <div className="flex space-x-4 mt-2">
+                <div className="flex space-x-4 mt-2 w-full justify-end">
                   <button
                     onClick={() => handleEditQuestion(index)}
-                    className="text-blue-600 hover:underline"
+                    className="text-blue-600 hover:underline flex items-center pr-5"
                   >
-                    Edit
+                    <EditIcon
+                      className="mr-1 hover:scale-110"
+                      fontSize="medium"
+                    />
                   </button>
                   <button
                     onClick={() => handleDeleteQuestion(index)}
-                    className="text-red-600 hover:underline"
+                    className="text-red-600 hover:underline flex items-center pr-10"
                   >
-                    Delete
+                    <DeleteIcon
+                      className="mr-1 hover:scale-110"
+                      fontSize="medium"
+                    />
                   </button>
                 </div>
               </li>
             ))}
+            <div className="flex flex-row justify-between w-full">
+              <button
+                onClick={handleAddQuestionClick}
+                className="bg-purple-600 flex flex-row text-center font-semibold text-white px-6 py-3 rounded-md hover:bg-purple-700 transition duration-300 mt-6"
+              >
+                <h3>Add Question</h3>
+                <AddCircleOutlineOutlinedIcon className="ml-3" />
+              </button>
+              {questions.length > 0 && (
+                <button
+                  onClick={confirm}
+                  className="bg-green-500 text-center font-semibold flex flex-row text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-300 mt-6"
+                >
+                  <h3>Continue</h3>
+                  <SendIcon className="ml-3" />
+                </button>
+              )}
+            </div>
           </ul>
-        )}
-
-        {/* Add Question Button, now below question list */}
-        <button
-          onClick={handleAddQuestionClick}
-          className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300 mt-6"
-        >
-          Add Question
-        </button>
-        {questions.length > 0 && (
-          <button
-            onClick={confirm}
-            className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-300 mt-6"
-          >
-            Create
-          </button>
         )}
       </div>
 
