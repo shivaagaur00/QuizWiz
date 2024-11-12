@@ -31,44 +31,61 @@ const Statistics = () => {
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen flex flex-col items-center">
-  <div className="w-full flex justify-center">
-  <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-6xl flex space-x-4">
-    {/* Line Chart */}
-    <div className="w-1/2">
-      <h2 className="text-lg font-semibold text-purple-900 mb-4">Candidate Performance Over Time</h2>
-      <LineChart
-        xAxis={[{ label: "Quiz Attempts", data: [1, 2, 3, 5, 8, 10, 12, 45, 65] }]}
-        series={[{ label: "Score", data: [2, 5.5, 2, 8.5, 1.5, 5, 5, 6, 5] }]}
-        width={300}
-        height={200}
-        title="Candidate's Performance"
-        yAxisLabel="Score"
-        xAxisLabel="Quiz Number"
-      />
-    </div>
-    <div className="w-1/2">
-      <PieChart
-        series={[
-          {
-            data: [
-              { id: 0, value: 10},
-              { id: 1, value: 100},
-            ],
-          },
-        ]}
-        width={300}
-        height={200}
-      />
-      
-    <h2 className="text-lg font-semibold text-purple-900 mb-4">Candidate Performance Over Time</h2>
-    </div>
-  </div>
-</div>
-
+      <div className="w-full flex justify-center">
+        <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-6xl flex space-x-4">
+          {/* Line Chart */}
+          <div className="w-1/2 flex flex-col justify-center items-center ml-10">
+            <LineChart
+              xAxis={[
+                {
+                  label: "Quiz Attempts",
+                  data: [0, 1, 2, 4, 10, 12, 45, 65],
+                },
+              ]}
+              series={[
+                {
+                  label: "Score",
+                  data: [0, 2, 5, 3, 5, 5, 6, 2],
+                  color: "#965fe3",
+                },
+              ]}
+              width={600}
+              height={300}
+              title="Candidate's Performance"
+              yAxisLabel="Score"
+              xAxisLabel="Quiz Number"
+            />
+            <h2 className="text-lg font-semibold text-purple-900 mb-4">
+              Candidate Performance Over Time
+            </h2>
+          </div>
+          <div className="w-1/2 flex flex-col items-center justify-center ">
+            <div className="ml-20 mb-0">
+              <PieChart
+                series={[
+                  {
+                    data: [
+                      { id: 0, value: 70, color: "#5dd469" },
+                      { id: 1, value: 30, color: "#f54c4c" },
+                    ],
+                  },
+                ]}
+                width={300}
+                height={300}
+              />
+            </div>
+            <h2 className="text-lg font-semibold text-purple-900 mb-4">
+              Candidate Performance Over Time
+            </h2>
+          </div>
+        </div>
+      </div>
 
       {/* Attended Quizzes Section */}
       <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg p-6 mt-8">
-        <h2 className="text-xl font-semibold text-purple-900 mb-4">Attended Quizzes</h2>
+        <h2 className="text-xl font-semibold text-purple-900 mb-4">
+          Attended Quizzes
+        </h2>
         <div className="relative flex items-center">
           <MdChevronLeft
             size={40}
@@ -80,7 +97,9 @@ const Statistics = () => {
             className="w-full whitespace-nowrap bg-blue-50 p-2 pt-4 overflow-x-scroll scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-100"
           >
             {sampleUsers.quizzesAttended.map((quiz, index) => {
-              const percentageScore = Math.round((quiz.score / quiz.totalMarks) * 100);
+              const percentageScore = Math.round(
+                (quiz.score / quiz.totalMarks) * 100
+              );
               return (
                 <div
                   key={index}
@@ -88,7 +107,9 @@ const Statistics = () => {
                   onClick={() => handleOpenModal(quiz)}
                 >
                   <div className="absolute top-0 left-0 right-0 bottom-0 p-4 flex flex-col justify-between text-gray-800">
-                    <h3 className="font-bold text-purple-700 text-xl">{quiz.code}</h3>
+                    <h3 className="font-bold text-purple-700 text-xl">
+                      {quiz.code}
+                    </h3>
                     <p className="text-gray-600 font-semibold">{quiz.topic}</p>
                     <p className="text-gray-600 text-sm">{quiz.date}</p>
                   </div>
@@ -104,7 +125,12 @@ const Statistics = () => {
                       variant="caption"
                       component="div"
                       color="textSecondary"
-                      style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                      }}
                     >
                       {`${percentageScore}%`}
                     </Typography>
@@ -122,14 +148,25 @@ const Statistics = () => {
       </div>
 
       {/* Modal for Quiz Details */}
-      <Modal open={openModal} onClose={handleCloseModal} aria-labelledby="quiz-modal-title" aria-describedby="quiz-modal-description">
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="quiz-modal-title"
+        aria-describedby="quiz-modal-description"
+      >
         <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg">
           {selectedQuiz && (
             <>
-              <h2 className="text-lg font-bold mb-4" id="quiz-modal-title">{selectedQuiz.code}</h2>
-              <p id="quiz-modal-description" className="text-gray-600 mb-2">Topic: {selectedQuiz.topic}</p>
+              <h2 className="text-lg font-bold mb-4" id="quiz-modal-title">
+                {selectedQuiz.code}
+              </h2>
+              <p id="quiz-modal-description" className="text-gray-600 mb-2">
+                Topic: {selectedQuiz.topic}
+              </p>
               <p className="text-gray-600 mb-2">Date: {selectedQuiz.date}</p>
-              <p className="text-gray-600 mb-2">Score: {selectedQuiz.score} / {selectedQuiz.totalMarks}</p>
+              <p className="text-gray-600 mb-2">
+                Score: {selectedQuiz.score} / {selectedQuiz.totalMarks}
+              </p>
             </>
           )}
         </Box>
