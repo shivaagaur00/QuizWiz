@@ -1,143 +1,139 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { sampleUsers } from "./dummyData";
+import { LineChart } from "@mui/x-charts/LineChart";
+import { Modal, Box, CircularProgress, Typography } from "@mui/material";
+import { PieChart } from "@mui/x-charts";
 
+const getProgressColor = (score) => {
+  if (score >= 75) return "#4caf50";
+  if (score >= 50) return "#ffeb3b";
+  return "#f44336";
+};
 const Statistics = () => {
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+
   const scrollSlider = (direction) => {
     const slider = document.getElementById("slider");
     slider.scrollLeft += direction * 500;
   };
-  return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <div className="bg-white shadow-lg rounded-lg p-6 mb-8 text-center">
-        <img
-          src={sampleUsers.photo}
-          alt="User Profile"
-          className="w-24 h-24 rounded-full border-4 border-purple-500 mx-auto"
-        />
-        <h1 className="text-2xl font-bold text-blue-900 mt-4">
-          {sampleUsers.firstName} {sampleUsers.lastName}
-        </h1>
-        <p className="text-gray-600">{sampleUsers.email}</p>
-        <p className="text-gray-600">{sampleUsers.college}</p>
-        <p className="text-gray-600 font-semibold">
-          {sampleUsers.degree} in {sampleUsers.branch}, Year {sampleUsers.year}
-        </p>
-        <div className="flex flex-wrap justify-center mt-4 space-x-2">
-          {sampleUsers.badges.map((badge, index) => (
-            <span
-              key={index}
-              className="bg-purple-100 text-purple-900 px-3 py-1 rounded-full text-sm font-medium"
-            >
-              {badge}
-            </span>
-          ))}
-        </div>
-      </div>
 
-      {/* Upcoming Quizzes */}
-      <div className="bg-white shadow-lg rounded-lg p-6 mb-4">
-        <h2 className="text-xl font-semibold text-purple-900 ">Upcoming Quizzes</h2>
-        <div id="main-slider-container" className="relative flex items-center">
+  const handleOpenModal = (quiz) => {
+    setSelectedQuiz(quiz);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedQuiz(null);
+    setOpenModal(false);
+  };
+
+  return (
+    <div className="p-8 bg-gray-100 min-h-screen flex flex-col items-center">
+  <div className="w-full flex justify-center">
+  <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-6xl flex space-x-4">
+    {/* Line Chart */}
+    <div className="w-1/2">
+      <h2 className="text-lg font-semibold text-purple-900 mb-4">Candidate Performance Over Time</h2>
+      <LineChart
+        xAxis={[{ label: "Quiz Attempts", data: [1, 2, 3, 5, 8, 10, 12, 45, 65] }]}
+        series={[{ label: "Score", data: [2, 5.5, 2, 8.5, 1.5, 5, 5, 6, 5] }]}
+        width={300}
+        height={200}
+        title="Candidate's Performance"
+        yAxisLabel="Score"
+        xAxisLabel="Quiz Number"
+      />
+    </div>
+    <div className="w-1/2">
+      <PieChart
+        series={[
+          {
+            data: [
+              { id: 0, value: 10},
+              { id: 1, value: 100},
+            ],
+          },
+        ]}
+        width={300}
+        height={200}
+      />
+      
+    <h2 className="text-lg font-semibold text-purple-900 mb-4">Candidate Performance Over Time</h2>
+    </div>
+  </div>
+</div>
+
+
+      {/* Attended Quizzes Section */}
+      <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg p-6 mt-8">
+        <h2 className="text-xl font-semibold text-purple-900 mb-4">Attended Quizzes</h2>
+        <div className="relative flex items-center">
           <MdChevronLeft
             size={40}
-            className="slider-icon z-30 left hover:opacity-100 left-0 absolute rounded-full opacity-75 bg-blue-50 text-blue-800"
+            className="slider-icon left-0 hover:opacity-100 absolute rounded-full opacity-75 bg-blue-50 text-blue-800"
             onClick={() => scrollSlider(-1)}
           />
           <div
             id="slider"
             className="w-full whitespace-nowrap bg-blue-50 p-2 pt-4 overflow-x-scroll scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-100"
           >
-            {sampleUsers.upcomingQuizzes.map((quiz, index) => (
-              <div
-                key={index}
-                className="relative w-80 h-28 bg-gray-50 border border-gray-200 rounded-lg ml-2 mr-2 shadow-lg cursor-pointer inline-block transition-transform duration-300 hover:scale-105 hover:bg-blue-100 hover:shadow-xl"
-              >
-                <div className="absolute top-0 left-0 right-0 bottom-0 p-4 flex flex-col justify-between text-gray-800">
-                  <h3 className="font-bold">{quiz.code}</h3>
-                  <p className="text-gray-600">Topic: {quiz.topic}</p>
-                  <p className="text-gray-600">Date: {quiz.date}</p>
-                  <p className="text-gray-600">Time: {quiz.time}</p>
+            {sampleUsers.quizzesAttended.map((quiz, index) => {
+              const percentageScore = Math.round((quiz.score / quiz.totalMarks) * 100);
+              return (
+                <div
+                  key={index}
+                  className="relative w-80 h-28 bg-gray-50 border border-gray-200 rounded-lg ml-2 mr-2 shadow-lg inline-block transition-transform duration-300 hover:scale-105 hover:bg-blue-100 cursor-pointer"
+                  onClick={() => handleOpenModal(quiz)}
+                >
+                  <div className="absolute top-0 left-0 right-0 bottom-0 p-4 flex flex-col justify-between text-gray-800">
+                    <h3 className="font-bold text-purple-700 text-xl">{quiz.code}</h3>
+                    <p className="text-gray-600 font-semibold">{quiz.topic}</p>
+                    <p className="text-gray-600 text-sm">{quiz.date}</p>
+                  </div>
+
+                  <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
+                    <CircularProgress
+                      variant="determinate"
+                      value={percentageScore}
+                      size={50}
+                      style={{ color: getProgressColor(percentageScore) }}
+                    />
+                    <Typography
+                      variant="caption"
+                      component="div"
+                      color="textSecondary"
+                      style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+                    >
+                      {`${percentageScore}%`}
+                    </Typography>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <MdChevronRight
             size={40}
-            className="slider-icon right hover:opacity-100 right-0 absolute rounded-full opacity-75 bg-blue-50 text-blue-800"
+            className="slider-icon right-0 hover:opacity-100 absolute rounded-full opacity-75 bg-blue-50 text-blue-800"
             onClick={() => scrollSlider(1)}
           />
         </div>
       </div>
 
-      {/* Statistics Overview */}
-      <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
-        <h2 className="text-xl font-semibold text-purple-900 mb-4">Statistics Overview</h2>
-        <p className="text-gray-700 font-medium">
-          Average Score:{" "}
-          <span className="text-purple-900 font-bold">{sampleUsers.avgScore}%</span>
-        </p>
-        <p className="text-gray-700 font-medium">
-          Attendance Streak:{" "}
-          <span className="text-purple-900 font-bold">{sampleUsers.attendanceStreak} quizzes</span>
-        </p>
-        <p className="text-gray-700 font-medium">
-          Highest Score:{" "}
-          <span className="text-purple-900 font-bold">{sampleUsers.highestScore}%</span>
-        </p>
-        <p className="text-gray-700 font-medium">
-          Quiz Success Rate:{" "}
-          <span className="text-purple-900 font-bold">{sampleUsers.quizSuccessRate}%</span>
-        </p>
-        <p className="text-gray-700 font-medium">
-          Total Quiz Time:{" "}
-          <span className="text-purple-900 font-bold">{sampleUsers.totalQuizTime}</span>
-        </p>
-        <p className="text-gray-700 font-medium">
-          Favorite Topics:{" "}
-          <span className="text-purple-900 font-bold">{sampleUsers.favoriteTopics.join(", ")}</span>
-        </p>
-      </div>
-
-      {/* Quizzes Attended */}
-      <div className="bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-xl font-semibold text-purple-900 mb-4">Quizzes Attended</h2>
-        <div className="space-y-4">
-          {sampleUsers.quizzesAttended.map((quiz, index) => (
-            <div
-              key={index}
-              className="flex justify-between items-center p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm"
-            >
-              <div>
-                <h3 className="font-bold text-gray-800">Quiz Code: {quiz.code}</h3>
-                <p className="text-gray-600">Topic: {quiz.topic}</p>
-                <p className="text-gray-600">Date: {quiz.date}</p>
-                <p className="text-gray-600">Score: {quiz.score} / {quiz.totalMarks}</p>
-                <p className="text-gray-600">Time: {quiz.time}</p>
-              </div>
-              <div className="flex items-center">
-                <div
-                  className={`w-16 h-16 flex items-center justify-center rounded-full 
-                  ${quiz.score >= 90 ? "bg-green-100 text-green-700" : quiz.score >= 75 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}
-                  `}
-                >
-                  <span className="text-lg font-semibold">
-                    {((quiz.score / quiz.totalMarks) * 100).toFixed(0)}%
-                  </span>
-                </div>
-                {quiz.isCompleted && (
-                  <button
-                    className="px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 ml-4"
-                    onClick={() => alert("Downloading Quiz Data...")}
-                  >
-                    Download answer sheet
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Modal for Quiz Details */}
+      <Modal open={openModal} onClose={handleCloseModal} aria-labelledby="quiz-modal-title" aria-describedby="quiz-modal-description">
+        <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg">
+          {selectedQuiz && (
+            <>
+              <h2 className="text-lg font-bold mb-4" id="quiz-modal-title">{selectedQuiz.code}</h2>
+              <p id="quiz-modal-description" className="text-gray-600 mb-2">Topic: {selectedQuiz.topic}</p>
+              <p className="text-gray-600 mb-2">Date: {selectedQuiz.date}</p>
+              <p className="text-gray-600 mb-2">Score: {selectedQuiz.score} / {selectedQuiz.totalMarks}</p>
+            </>
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 };
