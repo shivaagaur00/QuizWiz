@@ -1,5 +1,4 @@
 import Quiz from "../Models/Quiz.js";
-
 const generateCode = async () => {
   let code;
   let exists = true;
@@ -62,6 +61,32 @@ export const getQuiz = async (req, res) => {
     }
     return res.status(200).json(data);
   } catch (error) {
+    return res.status(500).json({ message: "Could not fetch data" });
+  }
+};
+
+export const updateQuiz = async (req, res) => {
+  try {
+    const { email, code, score } = req.body;
+    const result = await Quiz.findOneAndUpdate(
+      { code: code, "attemptedBy.email": { $ne: email } },
+      {
+        $addToSet: {
+          attemptedBy: { email: email, correctAnswers: score },
+        },
+      },
+      { new: true }
+    );
+
+    if (!result) {
+      return res
+        .status(400)
+        .json({ message: "User has already attempted this quiz" });
+    }
+
+    return res.status(200).json({ message: "Quiz user added successfully" });
+  } catch (error) {
+    console.error("Error in updateQuiz:", error);
     return res.status(500).json({ message: "Could not fetch data" });
   }
 };

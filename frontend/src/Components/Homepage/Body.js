@@ -16,7 +16,7 @@ const Body = () => {
         </h2>
         <div className="space-x-5">
           <Link
-            to="/candidate"
+            to="/join"
             className="bg-purple-600 hover:bg-white text-white hover:text-purple-500 font-bold py-3 px-8 rounded transition-colors duration-300 shadow-lg hover:shadow-xl"
           >
             Join the Quiz

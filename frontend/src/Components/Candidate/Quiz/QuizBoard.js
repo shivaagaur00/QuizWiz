@@ -4,7 +4,6 @@ import QuestionCard from "./QuestionCard";
 import TimeOver from "./TimeOver";
 
 function QuizBoard({ quiz }) {
-  console.log(quiz);
   const startingTime = new Date(quiz.scheduledTime).getTime();
   const activeDuration = quiz.quizDuration * 60000;
   const endingTime = startingTime + activeDuration;
@@ -43,12 +42,7 @@ function QuizBoard({ quiz }) {
       {timeLeftToStart > 0 ? (
         <WaitingPage timeLeftToStart={timeLeftToStart} />
       ) : quizEnded ? (
-        <TimeOver
-          result={result}
-          registered={registered}
-          totalMarks={quiz.numberOfQuestions}
-          code={quiz.code}
-        />
+        <TimeOver result={result} registered={registered} quiz={quiz} />
       ) : (
         <QuestionCard
           title={quiz.quizTitle}

@@ -3,8 +3,9 @@ import TIMER from "./../../../Assets/Work time-pana.svg";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../../LocalStorage";
 import { updateScore } from "./../../../API/Candidate.js";
+import { updateQuiz } from "./../../../API/Quiz.js";
 
-function TimeOver({ result, registered, totalMarks, code }) {
+function TimeOver({ result, registered, quiz }) {
   const { user } = useAppContext();
 
   const exitFullScreen = () => {
@@ -16,7 +17,6 @@ function TimeOver({ result, registered, totalMarks, code }) {
       console.warn("Document is not in fullscreen mode.");
     }
   };
-
   useEffect(() => {
     const updateMarks = async () => {
       if (registered && user?.email) {
@@ -24,8 +24,15 @@ function TimeOver({ result, registered, totalMarks, code }) {
           await updateScore({
             score: result,
             email: user?.email,
-            totalMarks,
-            code,
+            totalMarks: quiz.numberOfQuestions,
+            code: quiz.code,
+            date: quiz.scheduledTime,
+            examiner: quiz.generator,
+          });
+          await updateQuiz({
+            code: quiz.code,
+            score: result,
+            email: user?.email,
           });
         } catch (error) {
           console.error("Error updating score:", error);
@@ -33,7 +40,7 @@ function TimeOver({ result, registered, totalMarks, code }) {
       }
     };
     updateMarks();
-  }, [registered, user, result, totalMarks, code]);
+  }, [registered, user, result, quiz]);
 
   return (
     <div className="flex flex-row justify-around items-center w-full h-screen bg-gradient-to-br from-blue-900 via-purple-800 to-black text-white">

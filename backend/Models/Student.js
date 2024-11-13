@@ -17,6 +17,10 @@ export const quizSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  examiner: {
+    type: String,
+    required: true,
+  },
 });
 export const userSchema = new mongoose.Schema({
   firstName: {

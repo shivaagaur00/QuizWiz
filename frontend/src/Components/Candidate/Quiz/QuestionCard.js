@@ -15,7 +15,6 @@ function QuestionCard({
   setQuizEnded,
 }) {
   const [timer, setTimer] = useState(time);
-
   const shuffledOptions = useMemo(() => {
     const options = [...question.options];
     if (shuffle) {
@@ -96,7 +95,7 @@ function QuestionCard({
               <span className="font-semibold ml-6">{`${String.fromCharCode(
                 97 + number
               )}.`}</span>
-              <span className="ml-3">{option.optionText}</span>
+              <span className="ml-3">{option}</span>
             </button>
           ))}
         </div>
