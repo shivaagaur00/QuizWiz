@@ -27,9 +27,9 @@ function Main() {
         </Link>
         <div className="flex flex-col justify-center items-center">
           <img
-            alt="profile picture"
+            alt=""
             src={
-              user?.photo == "default"
+              user?.photo === "default"
                 ? "https://avatar.iran.liara.run/public"
                 : user?.photo
             }
