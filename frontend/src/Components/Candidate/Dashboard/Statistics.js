@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { sampleUsers } from "./dummyData";
-import { LineChart } from "@mui/x-charts/LineChart";
+import { LineChart, PieChart } from "@mui/x-charts";
 import { Modal, Box, CircularProgress, Typography } from "@mui/material";
-import { PieChart } from "@mui/x-charts";
 
 const getProgressColor = (score) => {
   if (score >= 75) return "#4caf50";
   if (score >= 50) return "#ffeb3b";
   return "#f44336";
 };
+
 const Statistics = () => {
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -31,6 +31,7 @@ const Statistics = () => {
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen flex flex-col items-center">
+      {/* Charts Section */}
       <div className="w-full flex justify-center">
         <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-6xl flex space-x-4">
           {/* Line Chart */}
@@ -59,6 +60,7 @@ const Statistics = () => {
               Candidate Performance Over Time
             </h2>
           </div>
+          {/* Pie Chart */}
           <div className="w-1/2 flex flex-col items-center justify-center ">
             <div className="ml-20 mb-0">
               <PieChart
@@ -81,8 +83,15 @@ const Statistics = () => {
         </div>
       </div>
 
+      {/* Total Quizzes Attended */}
+      <div className="mt-6 w-full max-w-6xl bg-white shadow-lg rounded-lg p-6">
+        <h2 className="text-xl font-bold text-purple-900">
+          Total Quizzes Attended: {sampleUsers.numberQuizAttended}
+        </h2>
+      </div>
+
       {/* Attended Quizzes Section */}
-      <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg p-6 mt-8">
+      <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg p-6 mt-4">
         <h2 className="text-xl font-semibold text-purple-900 mb-4">
           Attended Quizzes
         </h2>
@@ -103,17 +112,16 @@ const Statistics = () => {
               return (
                 <div
                   key={index}
-                  className="relative w-80 h-28 bg-gray-50 border border-gray-200 rounded-lg ml-2 mr-2 shadow-lg inline-block transition-transform duration-300 hover:scale-105 hover:bg-blue-100 cursor-pointer"
+                  className="relative w-80 h-28 bg-gray-50 border border-gray-200 rounded-lg ml-2 mr-2 shadow-lg inline-block transition-transform duration-300 hover:scale-105 hover:bg-purple-200 cursor-pointer"
                   onClick={() => handleOpenModal(quiz)}
                 >
-                  <div className="absolute top-0 left-0 right-0 bottom-0 p-4 flex flex-col justify-between text-gray-800">
+                  <div className="absolute top-0 left-0 right-0 bottom-0 p-4 flex flex-col justify-between text-gray-800 ">
                     <h3 className="font-bold text-purple-700 text-xl">
                       {quiz.code}
                     </h3>
                     <p className="text-gray-600 font-semibold">{quiz.topic}</p>
                     <p className="text-gray-600 text-sm">{quiz.date}</p>
                   </div>
-
                   <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
                     <CircularProgress
                       variant="determinate"
@@ -156,17 +164,27 @@ const Statistics = () => {
       >
         <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg">
           {selectedQuiz && (
-            <>
-              <h2 className="text-lg font-bold mb-4" id="quiz-modal-title">
-                {selectedQuiz.code}
-              </h2>
-              <p id="quiz-modal-description" className="text-gray-600 mb-2">
-                Topic: {selectedQuiz.topic}
+            <><div className="bg-purple-100 p-6 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-purple-800 mb-4" id="quiz-modal-title">
+              Quiz Code: {selectedQuiz.code}
+            </h2>
+            <div className="bg-purple-50 p-4 rounded-md shadow-sm">
+              <p id="quiz-modal-description" className="text-purple-700 font-semibold mb-3">
+                <span className="text-purple-900">Topic:</span> {selectedQuiz.topic}
               </p>
-              <p className="text-gray-600 mb-2">Date: {selectedQuiz.date}</p>
-              <p className="text-gray-600 mb-2">
-                Score: {selectedQuiz.score} / {selectedQuiz.totalMarks}
+              <p className="text-purple-700 font-semibold mb-3">
+                <span className="text-purple-900">Date:</span> {selectedQuiz.date}
               </p>
+              <p className="text-purple-700 font-semibold mb-3">
+                <span className="text-purple-900">Score:</span> {selectedQuiz.score} / {selectedQuiz.totalMarks}
+              </p>
+              <p className="text-purple-700 font-semibold">
+                <span className="text-purple-900">Examiner:</span> {selectedQuiz.examiner}
+              </p>
+            </div>
+          </div>
+          
+          
             </>
           )}
         </Box>

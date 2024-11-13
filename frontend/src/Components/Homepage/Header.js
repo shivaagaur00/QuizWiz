@@ -28,7 +28,7 @@ const Header = () => {
           </nav>
         ) : (
           <nav className="mr-10">
-            {user.type == 0 ? (
+            {user.type === 0 ? (
               <Link
                 to="/candidate/dashboard"
                 className="hover:bg-white hover:text-purple-500 bg-purple-500 text-white transition-colors duration-300 py-2 px-8 rounded-md shadow-lg"
