@@ -98,7 +98,7 @@ const Statistics = () => {
         <div className="relative flex items-center">
           <MdChevronLeft
             size={40}
-            className="slider-icon left-0 hover:opacity-100 absolute rounded-full opacity-75 bg-blue-50 text-blue-800"
+            className="slider-icon left-0 z-50 hover:opacity-100 absolute rounded-full opacity-75 bg-blue-50 text-blue-800"
             onClick={() => scrollSlider(-1)}
           />
           <div
@@ -112,15 +112,15 @@ const Statistics = () => {
               return (
                 <div
                   key={index}
-                  className="relative w-80 h-28 bg-gray-50 border border-gray-200 rounded-lg ml-2 mr-2 shadow-lg inline-block transition-transform duration-300 hover:scale-105 hover:bg-purple-200 cursor-pointer"
+                  className="relative w-80 h-28 bg-gray-50 border border-gray-200 rounded-lg ml-2 mr-2 shadow-lg inline-block transition-transform duration-300 text-gray-700  hover:scale-105 hover:bg-blue-950 hover:text-white cursor-pointer"
                   onClick={() => handleOpenModal(quiz)}
                 >
-                  <div className="absolute top-0 left-0 right-0 bottom-0 p-4 flex flex-col justify-between text-gray-800 ">
+                  <div className="absolute top-0 left-0 right-0 bottom-0 p-4 flex flex-col justify-between ">
                     <h3 className="font-bold text-purple-700 text-xl">
                       {quiz.code}
                     </h3>
-                    <p className="text-gray-600 font-semibold">{quiz.topic}</p>
-                    <p className="text-gray-600 text-sm">{quiz.date}</p>
+                    <p className="font-semibold">{quiz.topic}</p>
+                    <p className="text-sm">{quiz.date}</p>
                   </div>
                   <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
                     <CircularProgress
@@ -135,6 +135,7 @@ const Statistics = () => {
                       color="textSecondary"
                       style={{
                         position: "absolute",
+                        color: "grey",
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
@@ -164,27 +165,36 @@ const Statistics = () => {
       >
         <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg">
           {selectedQuiz && (
-            <><div className="bg-purple-100 p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold text-purple-800 mb-4" id="quiz-modal-title">
-              Quiz Code: {selectedQuiz.code}
-            </h2>
-            <div className="bg-purple-50 p-4 rounded-md shadow-sm">
-              <p id="quiz-modal-description" className="text-purple-700 font-semibold mb-3">
-                <span className="text-purple-900">Topic:</span> {selectedQuiz.topic}
-              </p>
-              <p className="text-purple-700 font-semibold mb-3">
-                <span className="text-purple-900">Date:</span> {selectedQuiz.date}
-              </p>
-              <p className="text-purple-700 font-semibold mb-3">
-                <span className="text-purple-900">Score:</span> {selectedQuiz.score} / {selectedQuiz.totalMarks}
-              </p>
-              <p className="text-purple-700 font-semibold">
-                <span className="text-purple-900">Examiner:</span> {selectedQuiz.examiner}
-              </p>
-            </div>
-          </div>
-          
-          
+            <>
+              <div className="bg-purple-100 p-6 rounded-lg shadow-lg">
+                <h2
+                  className="text-2xl font-bold text-purple-800 mb-4"
+                  id="quiz-modal-title"
+                >
+                  Quiz Code: {selectedQuiz.code}
+                </h2>
+                <div className="bg-purple-50 p-4 rounded-md shadow-sm">
+                  <p
+                    id="quiz-modal-description"
+                    className="text-purple-700 font-semibold mb-3"
+                  >
+                    <span className="text-purple-900">Topic:</span>{" "}
+                    {selectedQuiz.topic}
+                  </p>
+                  <p className="text-purple-700 font-semibold mb-3">
+                    <span className="text-purple-900">Date:</span>{" "}
+                    {selectedQuiz.date}
+                  </p>
+                  <p className="text-purple-700 font-semibold mb-3">
+                    <span className="text-purple-900">Score:</span>{" "}
+                    {selectedQuiz.score} / {selectedQuiz.totalMarks}
+                  </p>
+                  <p className="text-purple-700 font-semibold">
+                    <span className="text-purple-900">Examiner:</span>{" "}
+                    {selectedQuiz.examiner}
+                  </p>
+                </div>
+              </div>
             </>
           )}
         </Box>

@@ -5,7 +5,7 @@ import {
   updateScore,
 } from "./../Controllers/Student.js";
 import { addExaminer, getExaminer } from "./../Controllers/Examiner.js";
-import { getQuiz, generateQuiz } from "../Controllers/Quiz.js";
+import { getQuiz, generateQuiz, updateQuiz } from "../Controllers/Quiz.js";
 const route = Router();
 
 {
@@ -26,5 +26,6 @@ route.post("/getExaminer", getExaminer);
 }
 route.post("/getQuiz", getQuiz);
 route.post("/generateQuiz", generateQuiz);
+route.post("/updateQuiz", updateQuiz);
 
 export default route;

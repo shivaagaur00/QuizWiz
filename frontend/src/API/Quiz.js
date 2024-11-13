@@ -17,3 +17,12 @@ export const generateQuiz = async (data) => {
     return { status: -1, Message: "Could not connect to backend" };
   }
 };
+
+export const updateQuiz = async (data) => {
+  try {
+    let res = await axios.post(`${URL}/updateQuiz`, data);
+    return res;
+  } catch (error) {
+    return { status: -1, Message: "Could not connect to backend" };
+  }
+};

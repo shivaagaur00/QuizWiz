@@ -6,7 +6,7 @@ const questionSchema = new mongoose.Schema({
   correctOption: { type: String, required: true },
 });
 
-const attemptSchema = new mongoose.Schema({
+export const attemptSchema = new mongoose.Schema({
   email: { type: String, required: true },
   correctAnswers: { type: Number, required: true },
 });

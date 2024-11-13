@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../../LocalStorage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import JoinQuiz from "./JoinQuiz";
@@ -23,7 +23,12 @@ function Main() {
   return (
     <div className="flex flex-row w-full h-screen">
       <nav className="bg-purple-200 w-1/5 border-r-2 text-blue-950 border-purple-300 justify-between flex flex-col">
-        <div className="flex flex-col justify-center items-center mt-20">
+        <Link to="/">
+          <div className="text-2xl md:text-4xl font-bold tracking-wide mb-4 md:mb-0 cursor-pointer w-full text-center mt-14">
+            <span className="text-purple-800">Quiz</span>Wiz
+          </div>
+        </Link>
+        <div className="flex flex-col justify-center items-center mt-10 ">
           <img
             alt="profile picture"
             src={
