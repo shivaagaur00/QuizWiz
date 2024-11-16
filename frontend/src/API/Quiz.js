@@ -26,3 +26,12 @@ export const updateQuiz = async (data) => {
     return { status: -1, Message: "Could not connect to backend" };
   }
 };
+
+export const getQuizes = async (data) => {
+  try {
+    let res = await axios.post(`${URL}/getQuizes`, data);
+    return res;
+  } catch (error) {
+    return { status: -1, Message: "Could not connect to backend" };
+  }
+};

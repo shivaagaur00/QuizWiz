@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import BACKGROUND_IMAGE from "./../../Assets/homepage.svg";
 const Body = () => {
   return (
-    <div className="relative h-screen w-full bg-gradient-to-r from-purple-950 to-purple-200">
+    <div
+      className="relative h-screen w-full"
+      style={{
+        backgroundImage: `url(${BACKGROUND_IMAGE})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="flex flex-col items-center justify-center h-full text-center text-white p-10">
         <h1 className="text-6xl font-bold mb-2">Elevate Your Knowledge</h1>
         <h1 className="text-6xl font-bold mb-8">with QuizWiz</h1>

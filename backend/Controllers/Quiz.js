@@ -65,6 +65,15 @@ export const getQuiz = async (req, res) => {
   }
 };
 
+export const getQuizes = async (req, res) => {
+  try {
+    const data = await Quiz.find({ generator: req.body.email });
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({ message: "Could not fetch data" });
+  }
+};
+
 export const updateQuiz = async (req, res) => {
   try {
     const { email, code, score } = req.body;
