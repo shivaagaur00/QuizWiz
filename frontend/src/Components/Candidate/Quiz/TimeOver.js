@@ -28,6 +28,7 @@ function TimeOver({ result, registered, quiz }) {
             code: quiz.code,
             date: quiz.scheduledTime,
             examiner: quiz.generator,
+            topic: quiz.quizTitle,
           });
           await updateQuiz({
             code: quiz.code,

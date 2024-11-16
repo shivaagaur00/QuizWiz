@@ -21,6 +21,11 @@ export const quizSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  topic: {
+    type: String,
+    required: true,
+    default: "Random quiz",
+  },
 });
 export const userSchema = new mongoose.Schema({
   firstName: {

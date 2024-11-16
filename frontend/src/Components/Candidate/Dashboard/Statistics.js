@@ -1,19 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { sampleUsers } from "./dummyData";
 import { LineChart, PieChart } from "@mui/x-charts";
 import { Modal, Box, CircularProgress, Typography } from "@mui/material";
-
-const getProgressColor = (score) => {
-  if (score >= 75) return "#4caf50";
-  if (score >= 50) return "#ffeb3b";
-  return "#f44336";
-};
+import { useAppContext } from "../../../LocalStorage";
+import { getCandidate } from "../../../API/Candidate";
 
 const Statistics = () => {
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [avgPerformace, setAvgPerformance] = useState(0.0);
+  const [quizCodeArray, setQuizCodeArray] = useState([]);
+  const [quizObtainedArray, setQuizObtainedArray] = useState([]);
+  const { user, setUser } = useAppContext();
 
+  useEffect(() => {
+    const getUpdatedUser = async () => {
+      const res = await getCandidate({
+        email: user?.email,
+        password: user?.password,
+      });
+      setUser(res.data._doc);
+    };
+
+    const updateQuizData = () => {
+      setQuizCodeArray([]);
+      setQuizObtainedArray([]);
+      const codes = [];
+      const scores = [];
+      user?.quizzesAttended.forEach((quiz) => {
+        codes.push(quiz.topic);
+        scores.push((quiz.score * 100) / quiz.totalMarks);
+      });
+      setQuizCodeArray(codes);
+      setQuizObtainedArray(scores);
+    };
+
+    const averagePerformance = () => {
+      let totalMarks = 0;
+      let obtainedMarks = 0;
+      user?.quizzesAttended.forEach((quiz) => {
+        totalMarks += quiz.totalMarks;
+        obtainedMarks += quiz.score;
+      });
+      setAvgPerformance((obtainedMarks * 100) / totalMarks);
+    };
+
+    getUpdatedUser();
+    averagePerformance();
+    updateQuizData();
+  }, []);
+
+  const getProgressColor = (score) => {
+    if (score >= 75) return "#4caf50";
+    if (score >= 50) return "#ffeb3b";
+    return "#f44336";
+  };
   const scrollSlider = (direction) => {
     const slider = document.getElementById("slider");
     slider.scrollLeft += direction * 500;
@@ -39,25 +81,27 @@ const Statistics = () => {
             <LineChart
               xAxis={[
                 {
-                  label: "Quiz Attempts",
-                  data: [0, 1, 2, 4, 10, 12, 45, 65],
+                  label: "Quiz Code",
+                  data: quizCodeArray,
+                  scaleType: "band",
                 },
               ]}
               series={[
                 {
-                  label: "Score",
-                  data: [0, 2, 5, 3, 5, 5, 6, 2],
+                  label: "Marks Percentage",
+                  data: quizObtainedArray,
                   color: "#965fe3",
                 },
               ]}
               width={600}
               height={300}
               title="Candidate's Performance"
-              yAxisLabel="Score"
-              xAxisLabel="Quiz Number"
+              yAxisLabel="Marks"
+              xAxisLabel="Quiz Code"
             />
+            ;
             <h2 className="text-lg font-semibold text-purple-900 mb-4">
-              Candidate Performance Over Time
+              Your Performance per Quiz
             </h2>
           </div>
           {/* Pie Chart */}
@@ -67,8 +111,18 @@ const Statistics = () => {
                 series={[
                   {
                     data: [
-                      { id: 0, value: 70, color: "#5dd469" },
-                      { id: 1, value: 30, color: "#f54c4c" },
+                      {
+                        id: 0,
+                        value: avgPerformace,
+                        color: "#5dd469",
+                        label: "Good",
+                      },
+                      {
+                        id: 1,
+                        value: 100 - avgPerformace,
+                        color: "#f54c4c",
+                        label: "Bad",
+                      },
                     ],
                   },
                 ]}
@@ -77,7 +131,7 @@ const Statistics = () => {
               />
             </div>
             <h2 className="text-lg font-semibold text-purple-900 mb-4">
-              Candidate Performance Over Time
+              Overall Performace
             </h2>
           </div>
         </div>
@@ -86,7 +140,7 @@ const Statistics = () => {
       {/* Total Quizzes Attended */}
       <div className="mt-6 w-full max-w-6xl bg-white shadow-lg rounded-lg p-6">
         <h2 className="text-xl font-bold text-purple-900">
-          Total Quizzes Attended: {sampleUsers.numberQuizAttended}
+          Total Quizzes Attended: {user?.quizzesAttended.length}
         </h2>
       </div>
 
@@ -103,9 +157,9 @@ const Statistics = () => {
           />
           <div
             id="slider"
-            className="w-full whitespace-nowrap bg-blue-50 p-2 pt-4 overflow-x-scroll scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-100"
+            className="w-full whitespace-nowrap bg-blue-50 p-2 pt-4 pl-10 overflow-x-scroll scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-100"
           >
-            {sampleUsers.quizzesAttended.map((quiz, index) => {
+            {user?.quizzesAttended.map((quiz, index) => {
               const percentageScore = Math.round(
                 (quiz.score / quiz.totalMarks) * 100
               );
@@ -183,7 +237,10 @@ const Statistics = () => {
                   </p>
                   <p className="text-purple-700 font-semibold mb-3">
                     <span className="text-purple-900">Date:</span>{" "}
-                    {selectedQuiz.date}
+                    {selectedQuiz.time.substring(0, 10) +
+                      " @ " +
+                      selectedQuiz.time.substring(11, 16) +
+                      " ( India ) "}
                   </p>
                   <p className="text-purple-700 font-semibold mb-3">
                     <span className="text-purple-900">Score:</span>{" "}
