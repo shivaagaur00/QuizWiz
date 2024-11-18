@@ -109,6 +109,7 @@ function CandidateAuth() {
 
   return (
     <div className="bg-slate-200 min-h-screen flex flex-col justify-between items-center">
+       <Header />
       <div className="flex flex-col items-center w-full max-w-md p-6 bg-white rounded shadow-md m-20">
         {isLogin ? (
           <>
