@@ -25,6 +25,41 @@ const AboutPage = () => {
           <span className="font-semibold text-purple-300">QuizWiz</span> is the
           go-to quiz maker and quiz platform for everyone.
         </p>
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold text-white mb-4 text-center">
+            Contributors
+          </h2>
+          <ul className="list-disc list-inside text-center">
+          <li>
+              Prashant Pathak -{" "}
+              <a
+                href="mailto:prashant.pathak_cs22@gla.ac.in"
+                className="text-purple-300 hover:text-white"
+              >
+                prashant.pathak_cs22@gla.ac.in
+              </a>
+            </li>
+            <li>
+              Shiv Gaur -{" "}
+              <a
+                href="mailto:shivagaur1100@gmail.com"
+                className="text-purple-300 hover:text-white"
+              >
+                shivagaur1100@gmail.com
+              </a>
+            </li>
+            
+            <li>
+              Harsh Bansal -{" "}
+              <a
+                href="mailto:harshbansal695@gmail.com"
+                className="text-purple-300 hover:text-white"
+              >
+                harshbansal695@gmail.com
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -25,14 +25,26 @@ const ContactPage = () => {
                 Contact Information
               </h2>
               <p className="text-purple-900">
-                <strong>Email:</strong> support@quizwiz.com
+                <strong>Email:</strong>{" "}
+                <a
+                  href="mailto:shivagaur2503@gmail.com"
+                  className="text-purple-700 hover:underline"
+                >
+                  shivagaur2503@gmail.com
+                </a>
               </p>
               <p className="text-purple-900">
-                <strong>Phone:</strong> +1 123-456-7890
+                <strong>Phone:</strong>{" "}
+                <a
+                  href="tel:+916395276297"
+                  className="text-purple-700 hover:underline"
+                >
+                  +91 6395276297
+                </a>
               </p>
             </div>
             <div>
-              <h2 className="text-2xl font-semibold text-white mb-2">
+              <h2 className="text-2xl font-semibold text-purple-900 mb-2">
                 Follow Us
               </h2>
               <ul className="space-y-2">
@@ -48,7 +60,7 @@ const ContactPage = () => {
 
           {/* Contact Form */}
           <form
-            action="https://formspree.io/f/mbljkqwq"
+            action="https://formspree.io/f/xqaklwjr"
             method="POST"
             className="bg-purple-700 p-6 rounded-lg shadow-md"
           >

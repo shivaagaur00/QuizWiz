@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white text-center p-4 w-full flex items-center justify-between">
       <div className="flex-1 text-left">
-        <div>Contact us: QuizWiz.com</div>
+        <div>Contact us: shivagaur2503@gmail.com</div>
       </div>
 
       <div className="flex-1">
