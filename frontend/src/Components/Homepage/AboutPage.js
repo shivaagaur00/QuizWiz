@@ -29,14 +29,23 @@ const AboutPage = () => {
           <h2 className="text-2xl font-bold text-white mb-4 text-center">
             Contributors
           </h2>
-          <ul className="list-disc list-inside text-center">
-          <li>
+          <ul className="list-disc list-inside text-center space-y-4">
+            <li>
               Prashant Pathak -{" "}
               <a
                 href="mailto:prashant.pathak_cs22@gla.ac.in"
                 className="text-purple-300 hover:text-white"
               >
                 prashant.pathak_cs22@gla.ac.in
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/prashantpathak01/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-300 hover:text-white"
+              >
+                LinkedIn
               </a>
             </li>
             <li>
@@ -46,9 +55,17 @@ const AboutPage = () => {
                 className="text-purple-300 hover:text-white"
               >
                 shivagaur1100@gmail.com
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/shivaagaur/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-300 hover:text-white"
+              >
+                LinkedIn
               </a>
             </li>
-            
             <li>
               Harsh Bansal -{" "}
               <a
@@ -56,6 +73,33 @@ const AboutPage = () => {
                 className="text-purple-300 hover:text-white"
               >
                 harshbansal695@gmail.com
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/harsh-bansal-50185a293/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-300 hover:text-white"
+              >
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              Tushar Sharma -{" "}
+              <a
+                href="mailto:tusharsharma7037@gmail.com"
+                className="text-purple-300 hover:text-white"
+              >
+                tusharsharma7037@gmail.com
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/tusharsharma7037/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-300 hover:text-white"
+              >
+                LinkedIn
               </a>
             </li>
           </ul>
