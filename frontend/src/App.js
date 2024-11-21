@@ -10,7 +10,7 @@ import Quiz from "./Components/Candidate/Quiz/Main";
 import JoinQuizPage from "./Components/Homepage/JoinQuiz/JoinQuizPage";
 function App() {
   return (
-    <div classNameName="App">
+    <div className="App">
       <Router>
         <Routes>
           <Route path="/*" element={<NotFoundPage />} />
