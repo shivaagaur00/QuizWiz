@@ -56,11 +56,13 @@ function FullScreenApp() {
   }
 
   return (
-    <div>
+    <div className="h-screen">
       {isFullScreen ? (
         <div>
           {isValidCode ? (
-            <QuizBoard quiz={quiz}></QuizBoard>
+            <div className="h-screen bg-blue-950 overflow-hidden">
+              <QuizBoard quiz={quiz}></QuizBoard>
+            </div>
           ) : (
             <div className="w-full h-screen flex justify-center items-center flex-col bg-blue-50">
               <img src={INVALID_CODE} className="w-1/3" alt="Invalid Code" />
