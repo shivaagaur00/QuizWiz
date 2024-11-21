@@ -44,7 +44,7 @@ export const updateScore = async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const { email, code, totalMarks, score, date, examiner, title } = req.body;
+    const { email, code, totalMarks, score, date, examiner, topic } = req.body;
     const quiz = {
       code: code,
       totalMarks: totalMarks,

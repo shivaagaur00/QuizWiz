@@ -8,7 +8,7 @@ import { useAppContext } from "../../../LocalStorage";
 function FullScreenApp() {
   const { user } = useAppContext();
   const navigate = useNavigate();
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(true);
   const [isValidCode, setIsValidCode] = useState(false);
   const [quiz, setQuiz] = useState();
   const location = useLocation();
@@ -56,11 +56,13 @@ function FullScreenApp() {
   }
 
   return (
-    <div>
+    <div className="h-screen">
       {isFullScreen ? (
         <div>
           {isValidCode ? (
-            <QuizBoard quiz={quiz}></QuizBoard>
+            <div className="h-screen bg-blue-950 overflow-hidden">
+              <QuizBoard quiz={quiz}></QuizBoard>
+            </div>
           ) : (
             <div className="w-full h-screen flex justify-center items-center flex-col bg-blue-50">
               <img src={INVALID_CODE} className="w-1/3" alt="Invalid Code" />
