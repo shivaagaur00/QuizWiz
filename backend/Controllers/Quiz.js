@@ -42,8 +42,6 @@ export const generateQuiz = async (req, res) => {
       quizTitle,
     });
 
-    console.log(newQuiz);
-
     const savedQuiz = await newQuiz.save();
     return res.status(201).json(savedQuiz);
   } catch (error) {
@@ -89,7 +87,7 @@ export const updateQuiz = async (req, res) => {
 
     if (!result) {
       return res
-        .status(400)
+        .status(201)
         .json({ message: "User has already attempted this quiz" });
     }
 
