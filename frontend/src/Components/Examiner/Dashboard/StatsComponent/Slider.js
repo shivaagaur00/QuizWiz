@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import "./Slider.css";
+import DetailedModal from "./DetailedQuiz";
 
 const ReactCardSlider = ({ slides }) => {
   const scrollSlider = (direction) => {
     const slider = document.getElementById("slider");
     slider.scrollLeft += direction * 500;
   };
+
+  const [openDetailedModal, setOpenDetailedModal] = useState(false);
+  const [data, setData] = useState();
 
   return (
     <div id="main-slider-container" className="relative">
@@ -20,10 +24,14 @@ const ReactCardSlider = ({ slides }) => {
           <div
             className={`relative w-80 h-28 bg-blue-950 rounded-lg ml-2 mr-2 shadow-lg cursor-pointer inline-block transition-transform duration-300 hover:scale-105`}
             key={slide.id}
+            onClick={() => {
+              setOpenDetailedModal(true);
+              setData(slide);
+            }}
           >
             <div className="absolute top-0 left-0 right-0 bottom-0 p-4 flex flex-col justify-between text-white">
               <div>
-                <div className="flex flex-row justify-between items-center ">
+                <div className="flex flex-row justify-between items-center">
                   <h2 className="font-semibold ml-2 mr-6 text-xl max-h-14 overflow-hidden">
                     {slide.quizTitle}
                   </h2>
@@ -48,6 +56,13 @@ const ReactCardSlider = ({ slides }) => {
           </div>
         ))}
       </div>
+      {openDetailedModal && (
+        <DetailedModal
+          setModal={() => setOpenDetailedModal(false)}
+          data={data}
+        ></DetailedModal>
+      )}
+
       <MdChevronRight
         size={40}
         className="slider-icon right hover:opacity-100 right-0 absolute rounded-full opacity-75 bg-blue-50 text-blue-800"
