@@ -12,7 +12,7 @@ import AboutPage from "./Components/Homepage/AboutPage";  // Import AboutPage
 import ContactPage from "./Components/Homepage/ContactPage";  // Import ContactPage
 function App() {
   return (
-    <div classNameName="App">
+    <div className="App">
       <Router>
         <Routes>
           <Route path="/*" element={<NotFoundPage />} />
