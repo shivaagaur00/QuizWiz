@@ -49,7 +49,7 @@ const AboutPage = () => {
               </a>
             </li>
             <li>
-              Shiv Gaur -{" "}
+              Shiva Gaur -{" "}
               <a
                 href="mailto:shivagaur1100@gmail.com"
                 className="text-purple-300 hover:text-white"
