@@ -8,7 +8,7 @@ import { useAppContext } from "../../../LocalStorage";
 function FullScreenApp() {
   const { user } = useAppContext();
   const navigate = useNavigate();
-  const [isFullScreen, setIsFullScreen] = useState(true);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [isValidCode, setIsValidCode] = useState(false);
   const [quiz, setQuiz] = useState();
   const location = useLocation();
