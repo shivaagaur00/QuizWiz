@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom"; 
 const ContactPage = () => {
   return (
     <div
@@ -62,31 +62,31 @@ const ContactPage = () => {
           <form
             action="https://formspree.io/f/xqaklwjr"
             method="POST"
-            className="bg-purple-700 p-6 rounded-lg shadow-md"
+            className="bg-purple-300 p-6 rounded-lg shadow-md"
           >
-            <h2 className="text-2xl font-semibold text-white mb-4">
+            <h2 className="text-2xl font-semibold text-purple-1000 mb-4">
               Send Us a Message
             </h2>
             <label className="block mb-4">
-              <span className="block text-purple-200 font-semibold mb-2">
+              <span className="block text-purple-900 font-semibold mb-2">
                 Your Email:
               </span>
               <input
                 type="email"
                 name="email"
                 required
-                className="w-full p-3 border border-purple-500 rounded-lg focus:outline-none focus:ring focus:ring-purple-400 bg-purple-600 text-white"
+                className="w-full p-3 border border-purple-500 rounded-lg focus:outline-none focus:ring focus:ring-purple-400 bg-purple-100 text-purple-1000"
                 placeholder="Enter your email"
               />
             </label>
             <label className="block mb-4">
-              <span className="block text-purple-200 font-semibold mb-2">
+              <span className="block text-purple-900 font-semibold mb-2">
                 Your Message:
               </span>
               <textarea
                 name="message"
                 required
-                className="w-full p-3 border border-purple-500 rounded-lg focus:outline-none focus:ring focus:ring-purple-400 bg-purple-600 text-white"
+                className="w-full p-3 border border-purple-500 rounded-lg focus:outline-none focus:ring focus:ring-purple-400 bg-purple-100 text-purple-1000"
                 placeholder="Enter your message"
                 rows="5"
               ></textarea>
@@ -98,6 +98,14 @@ const ContactPage = () => {
               Send Message
             </button>
           </form>
+        </div>
+        <div className="mt-8 text-center">
+          <Link
+            to="/"  // Navigate to the homepage
+            className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-300"
+          >
+            Back to Home
+          </Link>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import { useAppContext } from "../../LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import BG2 from '../../Assets/BG3.svg';
 function ExaminerAuth() {
   const { user, setUser } = useAppContext();
   const navigate = useNavigate();
@@ -105,7 +106,15 @@ function ExaminerAuth() {
   };
 
   return (
-    <div className="bg-slate-200 min-h-screen flex flex-col justify-between items-center">
+<div
+    style={{
+      backgroundImage: `url(${BG2})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
+    className="bg-gradient-to-b from-purple-400 via-purple-300 to-purple-400 min-h-screen flex flex-col justify-between items-center"
+  >
       <Header />
       <div className="flex flex-col items-center w-full max-w-md p-6 bg-white rounded shadow-md m-20">
         {isLogin ? (
