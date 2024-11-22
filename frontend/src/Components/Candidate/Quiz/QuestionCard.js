@@ -70,7 +70,7 @@ function QuestionCard({
   ).toFixed(2)}%, skyblue ${((timer / time) * 100).toFixed(2)}%)`;
 
   return (
-    <div className="w-full pb-10 flex flex-col items-center">
+    <div className="w-full  pb-10 flex flex-col items-center bg-blue-950">
       <motion.div
         className="w-full h-20 m-10 shadow-lg flex justify-between items-center px-4 text-blue-950 animate-fade-in"
         style={{

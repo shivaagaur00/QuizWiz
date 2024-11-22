@@ -6,10 +6,10 @@ const AboutPage = () => {
     <div
       className="min-h-screen flex items-center justify-center"
       style={{
-        background: "linear-gradient(to bottom, #6a1b9a, #8e24aa, #ab47bc)",
+        background: "linear-gradient(to bottom, #e595f0, #7f6fc9, #70a1c4)",
       }}
     >
-      <div className="container mx-auto p-8 bg-purple-800 text-purple-100 rounded-lg shadow-xl max-w-3xl">
+      <div className="container mx-auto p-8 bg-slate-800  text-purple-100 rounded-lg shadow-xl max-w-3xl">
         <h1 className="text-4xl font-bold text-white mb-6 text-center">
           About Us
         </h1>
@@ -37,7 +37,7 @@ const AboutPage = () => {
                 href="mailto:prashant.pathak_cs22@gla.ac.in"
                 className="text-purple-300 hover:text-white"
               >
-                prashant.pathak_cs22@gla.ac.in
+                prashantpathak6395@gmail.com
               </a>{" "}
               |{" "}
               <a

@@ -232,6 +232,7 @@ function ExaminerAuth() {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-100"
                   placeholder="Enter your password"
+                  minLength="6"
                   required
                 />
               </div>

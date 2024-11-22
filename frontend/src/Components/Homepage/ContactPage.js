@@ -39,7 +39,7 @@ const ContactPage = () => {
                   href="tel:+916395276297"
                   className="text-purple-700 hover:underline"
                 >
-                  +91 6395276297
+                  +91 xxxxxxxxxx
                 </a>
               </p>
             </div>
